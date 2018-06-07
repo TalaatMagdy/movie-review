@@ -3,11 +3,12 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @movies = Movie.all
+    @movies = current_user.movies.all
   end
 
  
   def show
+      @reviews = Review.where(movie_id: @movie.id).order("created_at DESC")
   end
 
   def new
